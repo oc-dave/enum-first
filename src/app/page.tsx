@@ -12,7 +12,7 @@ import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlin
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import Image from 'next/image';
-import enumImage from './components/enum-image.jpeg'; // Make sure the path is correct
+import ProfileCard from "./components/ProfileCard"; // Importing the ProfileCard component
 
 const CohortsPage = () => {
   const dispatch = useDispatch();
@@ -24,16 +24,21 @@ const CohortsPage = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen relative">
         <div className="relative w-full h-[250px]"> {/* Adjust height as necessary */}
           <Image
-            src={enumImage}
+            src="/images/test-image.jpeg" // Path to the image in the public folder
             alt="Header Image"
-            layout="fill" // Fill the parent div
-            objectFit="cover" // Maintain aspect ratio while filling
-            className="absolute bottom-0 left-0 right-0" // Position at the bottom
+            width={1200} // Set a specific width
+            height={300} // Set a specific height
+            style={{ objectFit: 'cover', width: '100%', height: '250px' }} // Handle object-fit and dimensions via style
           />
-        </div>  
+
+          {/* ProfileCard placed on top of the image towards the left */}
+          <div className="absolute -bottom-32 left-40">
+            <ProfileCard /> {/* This will float the card to the top left of the image */}
+          </div>
+        </div>
 
         <div className="flex mt-8 flex-1"> {/* Added flex-1 to ensure proper layout */}
           <aside className="w-64 bg-white shadow-md p-4">
