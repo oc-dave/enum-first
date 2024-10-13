@@ -1,9 +1,3 @@
-[build]
-  command = "next build && next export"
-  publish = "out/"
-  functions = "out_functions/"
-  environment = { NODE_ENV = "production" }
-
 # Redirect all traffic to the index.html (common for SPAs)
 [[redirects]]
   from = "/*"
