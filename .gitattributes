@@ -1,0 +1,5 @@
+*.node filter=lfs diff=lfs merge=lfs -text
+*.node_modules filter=lfs diff=lfs merge=lfs -text
+node_modules/@next/swc-win32-x64-msvc/next-swc.win32-x64-msvc.node filter=lfs diff=lfs merge=lfs -text
+# echo "**/node_modules/resolve/test/resolver/symlinked/_/symlink_target/.gitkeep filter=lfs diff=lfs merge=lfs -text"
+# echo "**/node_modules/tailwindcss/types/generated/.gitkeep filter=lfs diff=lfs merge=lfs -text"
