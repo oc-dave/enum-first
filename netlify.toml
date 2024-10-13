@@ -1,3 +1,7 @@
+[build]
+  command = "next build"
+  publish = "/.next"
+
 # Redirect all traffic to the index.html (common for SPAs)
 [[redirects]]
   from = "/*"
