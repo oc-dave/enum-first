@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';// Import icons from MUI
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'; // Import icons from MUI
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useState } from "react";
 import { Tabs, Tab } from "@mui/material";
@@ -11,7 +11,7 @@ import React from "react";
 
 const Navbar = () => {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(1); // Default active tab set to 'Workspace'
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
@@ -51,17 +51,17 @@ const Navbar = () => {
             <Tab
               label="Home"
               onClick={() => router.push("/home")}
-              className={`text-neutral-700 font-sans ${activeTab === 0 ? "font-bold  text-primary" : ""}`}
+              className={`text-neutral-700 font-sans ${activeTab === 0 ? "font-bold text-blue-500" : ""}`}
             />
             <Tab
               label="Workspace"
               onClick={() => router.push("/workspace")}
-              className={`text-neutral-700 font-sans ${activeTab === 1 ? "font-bold text-primary" : ""}`}
+              className={`text-neutral-700 font-sans ${activeTab === 1 ? "font-bold text-blue-500" : ""}`}
             />
             <Tab
               label="Resources Library"
               onClick={() => router.push("/resources-library")}
-              className={`text-neutral-700 font-sans ${activeTab === 2 ? "font-bold text-primary" : ""}`}
+              className={`text-neutral-700 font-sans ${activeTab === 2 ? "font-bold text-blue-500" : ""}`}
             />
           </Tabs>
         </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
             <button className="flex items-center">
               <NotificationsNoneIcon style={{ fontSize: '30px' }} /> {/* Notification Icon from MUI */}
             </button>
-            <span className="absolute top-0 right-0 bg-blue-500 text-white rounded-full text-xs px-2">1</span> {/* Badge */}
+            <span className="absolute top-[-5px] right-[-5px] bg-blue-500 text-white rounded-full text-xs px-2 py-1">1</span> {/* Badge */}
           </div>
 
           {/* User Profile */}
@@ -88,7 +88,7 @@ const Navbar = () => {
                            xl:text-xl">Onowomano</span>
           </div>
           <div className="flex items-center cursor-pointer font-bold">
-            <KeyboardArrowDownIcon style={{ fontSize: '30px' }} /> {/* Profile Icon from MUI */}
+            <KeyboardArrowDownIcon style={{ fontSize: '30px' }} /> {/* Dropdown Icon from MUI */}
           </div>
 
           {/* Cube Grid */}
@@ -96,7 +96,7 @@ const Navbar = () => {
                        md:ml-6
                        lg:ml-8
                        xl:ml-10">
-            <AppsOutlinedIcon style={{ fontSize: '40px' }} />
+            <AppsOutlinedIcon style={{ fontSize: '40px' }} /> {/* Cube Grid Icon */}
           </div>
         </div>
       </nav>

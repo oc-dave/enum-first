@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.sidebar-link {
+  @apply transition duration-200 ease-in-out;
+}
+
+.sidebar-link:hover {
+  @apply bg-blue-100 text-blue-500;
+}
