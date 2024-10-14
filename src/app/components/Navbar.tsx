@@ -8,7 +8,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useState } from "react";
 import { Tabs, Tab } from "@mui/material";
 import React from "react";
-// Ensure CubeGrid is in the right folder
 
 const Navbar = () => {
   const router = useRouter();
@@ -20,10 +19,16 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-md border-b border-gray-200">
+      <nav className="flex items-center justify-between px-4 py-2 bg-white shadow-md border-b border-gray-200
+                     md:px-8 md:py-4
+                     lg:px-12 lg:py-6
+                     xl:px-16 xl:py-8">
         {/* Left Side: Logo */}
         <div className="flex items-center">
-          <span className="text-primary text-2xl font-bold text-blue-500 ml-10">enum</span>
+          <span className="text-primary text-2xl font-bold text-blue-500 ml-4
+                       md:text-xl md:ml-8
+                       lg:text-2xl lg:ml-12
+                       xl:text-3xl xl:ml-16">enum</span>
         </div>
 
         {/* Center Tabs */}
@@ -38,12 +43,15 @@ const Navbar = () => {
                 borderRadius: "4px",
               },
             }}
-            className="space-x-8 text-sm font-bold"
+            className="space-x-4 text-sm font-bold
+                       md:space-x-6 md:text-base
+                       lg:space-x-8 lg:text-lg
+                       xl:space-x-10 xl:text-xl"
           >
             <Tab
               label="Home"
               onClick={() => router.push("/home")}
-              className={`text-neutral-700 font-sans ${activeTab === 0 ? "font-bold text-primary" : ""}`}
+              className={`text-neutral-700 font-sans ${activeTab === 0 ? "font-bold  text-primary" : ""}`}
             />
             <Tab
               label="Workspace"
@@ -59,7 +67,10 @@ const Navbar = () => {
         </div>
 
         {/* Right Side: Notifications, Profile, and Cube Grid */}
-        <div className="flex items-center space-x-8">
+        <div className="flex items-center space-x-4
+                     md:space-x-6
+                     lg:space-x-8
+                     xl:space-x-10">
           {/* Notifications */}
           <div className="relative">
             <button className="flex items-center">
@@ -71,19 +82,22 @@ const Navbar = () => {
           {/* User Profile */}
           <div className="flex items-center text-sky-600 cursor-pointer font-bold">
             <AccountCircleRoundedIcon style={{ fontSize: '30px' }} /> {/* Profile Icon from MUI */}
-            <span className="ml-2 text-neutral-950 font-light ">Onowomano</span>
+            <span className="ml-2 text-neutral-950 font-light text-sm
+                           md:text-base
+                           lg:text-lg
+                           xl:text-xl">Onowomano</span>
           </div>
           <div className="flex items-center cursor-pointer font-bold">
             <KeyboardArrowDownIcon style={{ fontSize: '30px' }} /> {/* Profile Icon from MUI */}
           </div>
 
-
-
           {/* Cube Grid */}
-          <div className="flex items-center text-sky-600 cursor-pointer font-bold ml-10">
+          <div className="flex items-center text-sky-600 cursor-pointer font-bold ml-4
+                       md:ml-6
+                       lg:ml-8
+                       xl:ml-10">
             <AppsOutlinedIcon style={{ fontSize: '40px' }} />
           </div>
-
         </div>
       </nav>
     </>
