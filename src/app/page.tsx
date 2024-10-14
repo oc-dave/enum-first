@@ -27,7 +27,7 @@ const CohortsPage = () => {
       <div className="flex flex-col min-h-screen relative">
         <div className="relative w-full h-[350px] md:h-[400px] lg:h-[450px]">
           <Image
-            src="/images/test-image.jpeg" // Path to the image in the public folder
+            src="https://i.ibb.co/JqTdYCF/6e709818152f.jpg" // Path to the image in the public folder
             alt="Header Image"
             width={2000}
             height={100}
@@ -46,8 +46,8 @@ const CohortsPage = () => {
           <div className="flex flex-col md:flex-row mt-16 flex-1">
             {/* Sidebar */}
             <aside className="w-full md:w-64 bg-white shadow-md p-4 mb-4 md:mb-0">
-              <ul className="ml-4 mt-4">
-                <li className="text-neutral-600 mb-5">
+              <ul className="ml-10 mt-10">
+                <li className="text-neutral-600 mb-6">
                   <a
                     href="#"
                     className="flex items-center transition-colors duration-200 hover:text-blue-500 hover:font-bold"
@@ -56,7 +56,7 @@ const CohortsPage = () => {
                     <span className="ml-2">Cohorts</span>
                   </a>
                 </li>
-                <li className="text-neutral-600 mb-5">
+                <li className="text-neutral-600 mb-6">
                   <a
                     href="#"
                     className="flex items-center transition-colors duration-200 hover:text-blue-500 hover:font-bold"
@@ -65,7 +65,7 @@ const CohortsPage = () => {
                     <span className="ml-2">Programs</span>
                   </a>
                 </li>
-                <li className="text-neutral-600 mb-5">
+                <li className="text-neutral-600 mb-6">
                   <a
                     href="#"
                     className="flex items-center transition-colors duration-200 hover:text-blue-500 hover:font-bold"
@@ -74,7 +74,7 @@ const CohortsPage = () => {
                     <span className="ml-2">Instructors</span>
                   </a>
                 </li>
-                <li className="text-neutral-600 mb-5">
+                <li className="text-neutral-600 mb-6">
                   <a
                     href="#"
                     className="flex items-center transition-colors duration-200 hover:text-blue-500 hover:font-bold"
@@ -91,10 +91,10 @@ const CohortsPage = () => {
               <h1 className="text-2xl mb-4 text-neutral-800 font-serif font-semibold">
                 Cohorts
               </h1>
-              <div className="flex flex-col items-center justify-center h-full">
-                <div className="text-center mb-16">
+              <div className="flex flex-col items-center justify-center h-full mt-40">
+                <div className="text-center mb-18">
                   <div className="flex justify-center items-center text-neutral-300 font-bold">
-                    <CloudIcon style={{ fontSize: "120px" }} /> {/* Adjust size */}
+                    <CloudIcon style={{ fontSize: "180px" }} /> {/* Adjust size */}
                   </div>
                   <h2 className="text-lg font-semibold text-neutral-600 mt-2">
                     Empty Space
