@@ -32,7 +32,7 @@ const CohortsPage = () => {
             alt="Header Image"
             width={2000}
             height={100}
-            className="object-cover w-full h-[350px]"
+            className="object-cover w-full h-[280px]"
           />
           <div className="absolute left-6 bottom-12 md:bottom-36 md:left-32 w-56">
             <img
@@ -111,10 +111,10 @@ const CohortsPage = () => {
                   />
                 </div>
                 <h2 className="text-xl font-semibold mt-10">Empty Space</h2>
-                <p className="text-neutral-600 mt-8 font-normal">
-                  No cohort has been created yet, let’s get you started by clicking the button below.
+                <p className="text-neutral-600 mt-8 font-normal text-xl">
+                  No cohort has been created yet, let’s get you started by <br /> clicking the button below.
                 </p>
-                <button onClick={openCohortModal} className="mt-4 bg-blue-500 text-white p-2 rounded-md">
+                <button onClick={openCohortModal} className="mt-6 bg-blue-500 text-white p-6 rounded-lg text-xl">
                   Create a Cohort
                 </button>
               </div>
