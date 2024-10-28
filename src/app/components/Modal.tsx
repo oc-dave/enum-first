@@ -17,7 +17,7 @@ const EnumModal = ({ open, handleClose }: { open: boolean; handleClose: () => vo
     endDate: '',
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setCohortData((prev) => ({ ...prev, [name]: value }));
   };
