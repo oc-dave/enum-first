@@ -7,6 +7,14 @@ import Navbar from "./components/Navbar";
 import EnumModal from "./components/Modal";
 import Image from "next/image";
 import { useState } from "react";
+import {
+  TextField,
+  InputAdornment,
+  Button,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 const CohortsPage = () => {
   const dispatch = useDispatch();
@@ -17,9 +25,18 @@ const CohortsPage = () => {
   const handleCloseModal = () => dispatch(closeModal());
 
   const [activeItem, setActiveItem] = useState("Cohorts");
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleItemClick = (item: string) => {
     setActiveItem(item);
+  };
+
+  const handleMoreActionsClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -95,6 +112,7 @@ const CohortsPage = () => {
                 />
                 <span>Learners</span>
               </div>
+             
             </div>
           </aside>
 
@@ -120,35 +138,96 @@ const CohortsPage = () => {
               </div>
             ) : (
               <div>
-                <div className="flex justify-between mb-4">
-                  <input
-                    type="text"
+                <div className="flex justify-between mb-4 ml-32">
+                  <TextField
+                    variant="outlined"
                     placeholder="Search"
-                    className="border border-zinc-300 p-2 rounded-md w-1/3"
+                    className="w-1/3"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
                   />
-                  <div className="relative">
-                    <button onClick={openCohortModal} className="bg-blue-500 text-white p-2 rounded-md">
+                  <div className="relative flex items-center">
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: '#008EEF', // Enum logo color
+                        color: 'white', // Set text color
+                        height: '48px', // Increase height
+                        padding: '12px 24px', // Set padding
+                        borderRadius: '8px', // Adjust border radius
+                        fontFamily: 'DM Sans, sans-serif', // Set font to DM Sans
+                        '&:hover': {
+                          backgroundColor: '#007BCC', // Change color on hover
+                        },
+                      }}
+                      onClick={openCohortModal}
+                    >
                       Create a Cohort
-                    </button>
-                    <button className="bg-zinc-200 p-2 rounded-md ml-2">More Actions</button>
-                    {/* Dropdown for more actions */}
-                    <div className="absolute right-0 mt-2 w-48 bg-white border border-zinc-300 rounded-md shadow-lg hidden">
-                      <div className="p-2 hover:bg-zinc-100">Publish a poll</div>
-                    </div>
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        borderColor: '#008EEF', // Border color same as enum logo
+                        color: '#008EEF', // Text color to match logo
+                        height: '48px', // Match height
+                        padding: '12px 24px', // Set padding
+                        borderRadius: '8px', // Adjust border radius
+                        fontFamily: 'DM Sans, sans-serif', // Set font to DM Sans
+                        marginLeft: '16px', // Space between buttons
+                        position: 'relative', // For positioning the dots
+                        '&:hover': {
+                          borderColor: '#007BCC', // Change border color on hover
+                        },
+                      }}
+                      onClick={handleMoreActionsClick}
+                    >
+                      More Actions <span className="font-extrabold text-3xl ml-2">⋮</span>
+                    </Button>
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={handleCloseMenu}
+                    >
+                      <MenuItem onClick={handleCloseMenu}>Publish a poll</MenuItem>
+                      <MenuItem onClick={handleCloseMenu}>Schedule an event</MenuItem>
+                      <MenuItem onClick={handleCloseMenu}>Make an announcement</MenuItem>
+                    </Menu>
                   </div>
                 </div>
 
-                <div className="border-b border-zinc-200 pb-2">
+                <div className="border-b border-zinc-200 pb-8 ml-32">
                   {cohorts.map(cohort => (
-                    <div key={cohort.id} className="flex items-center py-2">
-                      <div className="bg-pink-200 w-10 h-10 rounded-full mr-3"></div>
+                    <div key={cohort.id} className="flex items-center py-2 pb-4 shadow-sm rounded-lg">
+                      <div className={`bg-pink-400 w-12 h-12 rounded-lg mr-3 ${cohort.avatar ? 'overflow-hidden' : ''}`}>
+                        {cohort.avatar ? (
+                          <img src={cohort.avatar} alt={`${cohort.name} avatar`} className="w-full h-full rounded-lg" />
+                        ) : (
+                          <div className="w-full h-full bg-gray-300 rounded-lg"></div>
+                        )}
+                      </div>
                       <div className="flex-1">
-                        <div className="font-semibold">{cohort.name}</div>
-                        <div className="text-zinc-500">
-                          {cohort.program} - {cohort.learnersCount || 0} Learners
+                        <div className="font-bold text-xl mt-4" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+                          <span className="truncate">{cohort.name}</span>
+                        </div>
+                        <div className="flex items-center text-zinc-500">
+                          <span>{cohort.program}</span>
+                          <img
+                            src="https://res.cloudinary.com/dvrsknpdj/image/upload/v1729899460/user_paszrd.png"
+                            alt="Learner Icon"
+                            className="ml-8 w-6 h-6 mr-2"
+                          />
+                          <span className="whitespace-nowrap">{cohort.learnersCount || 25} Learners</span>
                         </div>
                       </div>
-                      <div>Created {new Date(cohort.startDate).toLocaleDateString()}</div>
+                      <div className="mr-20">
+                        Created {new Date(cohort.startDate).toLocaleDateString()}
+                        <span className="ml-2">⋮</span> {/* Vertical dots */}
+                      </div>
                     </div>
                   ))}
                 </div>
