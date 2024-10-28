@@ -1,137 +1,141 @@
 "use client";
 
-import { Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from "@mui/material";
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { useState } from "react";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload"; // Import upload icon
+import { useDispatch } from "react-redux";
+import { addCohort } from "../store/slice/cohortsSlice"; 
+import UploadFileIcon from '@mui/icons-material/UploadFile'; // Import the upload icon
 
-
-
-const EnumModal = ({ open, handleClose}: { open: any, handleClose: any }) => {
+const EnumModal = ({ open, handleClose }: { open: boolean; handleClose: () => void }) => {
+  const dispatch = useDispatch();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [cohortData, setCohortData] = useState({
+    name: '',
+    description: '',
+    program: '',
+    startDate: '',
+    endDate: '',
+  });
 
-  // Function to handle file selection
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setCohortData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setAvatarFile(file);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newCohort = {
+      id: Date.now(), // Generate a unique ID
+      ...cohortData,
+      avatar: avatarFile ? URL.createObjectURL(avatarFile) : null,
+    };
+    dispatch(addCohort(newCohort)); // Dispatch action to add cohort
+    handleClose(); // Close the modal after creating
+  };
+
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-      <div className="fixed inset-0 flex items-center justify-center bg-sky-400 bg-opacity-20 border-sky-500 ">
-        <div className="bg-white dark:bg-card rounded-lg shadow-lg p-6 w-5/12  border-sky-500 border-2">
-          <DialogTitle>
-            <Typography variant="h6" component="div" className=" font-serif font-semibold mb-4">
-              Create a Cohort
-            </Typography>
-          </DialogTitle>
-          <DialogContent dividers>
-            <form>
-              {/* Cohort Name Field */}
-              <div className="mb-4">
-                <TextField
-                  label="Cohort Name"
-                  id="cohort-name"
-                  placeholder="Ex: Cohort 1"
-                  fullWidth
-                  margin="dense"
-                  variant="outlined"
-                  className="mt-1 block w-full border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm p-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+    <Dialog open={open} onClose={handleClose}>
+      <div className="mx-auto p-6 bg-card rounded-lg shadow-lg">
+        <DialogTitle fontFamily={'sans-serif'}>Create a Cohort</DialogTitle>
+        <DialogContent dividers>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-muted-foreground" htmlFor="cohort-name">Cohort Name</label>
+              <input 
+                type="text" 
+                id="cohort-name" 
+                name="name"
+                placeholder="Ex. Cohort 1" 
+                className="mt-1 block w-full p-2 border border-border rounded-md focus:ring-2 focus:ring-ring" 
+                onChange={handleInputChange}
+                required 
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-muted-foreground" htmlFor="description">Description</label>
+              <textarea 
+                id="description" 
+                name="description"
+                placeholder="Ex. A space for python developers" 
+                className="mt-1 block w-full p-2 border border-border rounded-md focus:ring-2 focus:ring-ring" 
+                onChange={handleInputChange}
+                required 
+              ></textarea>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-muted-foreground" htmlFor="program">Program</label>
+              <select 
+                id="program" 
+                name="program"
+                className="mt-1 block w-full p-2 border border-border rounded-md focus:ring-2 focus:ring-ring" 
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select a program</option>
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="java">Java</option>
+              </select>
+            </div>
+
+            <div className="flex mb-4">
+              <div className="w-1/2 mr-2">
+                <label className="block text-sm font-medium text-muted-foreground" htmlFor="start-date">Start Date</label>
+                <input 
+                  type="date" 
+                  id="start-date" 
+                  name="startDate"
+                  className="mt-1 block w-full p-2 border border-border rounded-md focus:ring-2 focus:ring-ring" 
+                  onChange={handleInputChange}
+                  required 
                 />
               </div>
-
-              {/* Description Field */}
-              <div className="mb-4">
-                <TextField
-                  label="Description"
-                  id="description"
-                  placeholder="Ex: A space for python developers"
-                  multiline
-                  rows={4}
-                  fullWidth
-                  margin="dense"
-                  variant="outlined"
-                  className="mt-1 block w-full border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm p-2 focus:ring-2 focus:ring-primary focus:border-transparent"
+              <div className="w-1/2">
+                <label className="block text-sm font-medium text-muted-foreground" htmlFor="end-date">End Date</label>
+                <input 
+                  type="date" 
+                  id="end-date" 
+                  name="endDate"
+                  className="mt-1 block w-full p-2 border border-border rounded-md focus:ring-2 focus:ring-ring" 
+                  onChange={handleInputChange}
+                  required 
                 />
               </div>
+            </div>
 
-              {/* Program Field */}
-              <div className="mb-4">
-                <TextField
-                  label="Program"
-                  id="program"
-                  fullWidth
-                  margin="dense"
-                  variant="outlined"
-                  className="mt-1 block w-full border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm p-2 focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
+            <div className="mb-4 flex flex-col items-center justify-center p-6 border-2 border-dashed border-muted rounded-lg bg-card text-muted-foreground">
+              <div className="mb-2">
+                <img aria-hidden="true" alt="upload-icon" src="https://res.cloudinary.com/dvrsknpdj/image/upload/v1730117180/upload_zrkbiz.png" />
               </div>
+              <p className="text-lg">Drag and drop or <a href="#" className="text-primary hover:underline">choose file</a></p>
+              <p className="text-sm text-muted">240x240 px Recommended, max size 1MB</p>
+              <p className="text-xs text-muted-foreground">You can do this later.</p>
+              <input 
+                type="file" 
+                onChange={handleFileChange} 
+                className="hidden" // Hide the default file input
+                id="avatar-upload" // Set an ID for the label to target
+              />
+              <label htmlFor="avatar-upload" className="cursor-pointer text-primary hover:underline">
+                Choose File
+              </label>
+            </div>
 
-              {/* Date Fields */}
-              <div className="flex space-x-4 mb-4">
-                <div className="w-1/2">
-                  <TextField
-                    label="Start Date"
-                    id="start-date"
-                    type="date"
-                    fullWidth
-                    margin="dense"
-                    InputLabelProps={{ shrink: true }}
-                    className="mt-1 block w-full border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm p-2 focus:ring-2 focus:ring-primary focus:border-transparent"
-                  />
-                </div>
-                <div className="w-1/2">
-                  <TextField
-                    label="End Date"
-                    id="end-date"
-                    type="date"
-                    fullWidth
-                    margin="dense"
-                    InputLabelProps={{ shrink: true }}
-                    className="mt-1 block w-full border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm p-2 focus:ring-2 focus:ring-primary focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              {/* Avatar Upload Section */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-200 mb-2">
-                  Add a cohort avatar
-                </label>
-                <div className="border-2 border-dashed border-zinc-300 dark:border-sky-600 rounded-md p-4 text-center relative">
-                  <CloudUploadIcon className="text-zinc-500 dark:text-zinc-400 mb-2" style={{ fontSize: "40px" }} />
-                  <p className="text-zinc-500 dark:text-zinc-400">Drag and drop or choose file</p>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400">340x240px Recommended, max size 1MB</p>
-                  <input
-                    type="file"
-                    onChange={handleFileChange}
-                    className="absolute inset-0 opacity-0 cursor-pointer"
-                  />
-                </div>
-                {avatarFile && (
-                  <div className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
-                    Selected file: {avatarFile.name}
-                  </div>
-                )}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex justify-between mt-6">
-                <Button
-                  onClick={handleClose}
-                  className="bg-muted text-muted-foreground hover:bg-muted/80 px-4 py-2 rounded-md"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className="bg-primary text-primary-foreground hover:bg-primary/80 px-4 py-2 rounded-md"
-                >
-                  Create Cohort
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </div>
+            <DialogActions>
+              <Button onClick={handleClose} className="border border-blue-500 text-blue-500 hover:bg-blue-50">Cancel</Button>
+              <Button type="submit" className="bg-gray-300 text-gray-500" disabled={!cohortData.name || !cohortData.description || !cohortData.program || !cohortData.startDate || !cohortData.endDate}>
+                Create Cohort
+              </Button>
+            </DialogActions>
+          </form>
+        </DialogContent>
       </div>
     </Dialog>
   );

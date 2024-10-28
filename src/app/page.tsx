@@ -4,120 +4,161 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store/store";
 import { openModal, closeModal } from "./store/slice/modalSlice";
 import Navbar from "./components/Navbar";
-import Modal from "./components/Modal";
-import CloudIcon from "@mui/icons-material/Cloud";
-import React from "react";
-import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
-import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlined";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import EnumModal from "./components/Modal";
 import Image from "next/image";
-import ProfileCard from "./components/ProfileCard"; // Importing the ProfileCard component
+import { useState } from "react";
 
 const CohortsPage = () => {
   const dispatch = useDispatch();
   const isModalOpen = useSelector((state: RootState) => state.modal.isOpen);
+  const cohorts = useSelector((state: RootState) => state.cohorts.cohorts);
 
   const openCohortModal = () => dispatch(openModal());
   const handleCloseModal = () => dispatch(closeModal());
+
+  const [activeItem, setActiveItem] = useState("Cohorts");
+
+  const handleItemClick = (item: string) => {
+    setActiveItem(item);
+  };
 
   return (
     <>
       <Navbar />
       <div className="flex flex-col min-h-screen relative">
-        <div className="relative w-full h-[350px] md:h-[400px] lg:h-[450px]">
+        <div className="relative w-full h-[350px]">
           <Image
-            src="https://i.ibb.co/JqTdYCF/6e709818152f.jpg" // Path to the image in the public folder
+            src="https://i.ibb.co/JqTdYCF/6e709818152f.jpg"
             alt="Header Image"
             width={2000}
             height={100}
-            className="object-cover w-full h-[350px] md:h-[400px] lg:h-[450px]" // Adjust height for responsiveness
+            className="object-cover w-full h-[350px]"
           />
-
-          <div
-            className="absolute bottom-[-0%] left-[-30px] w-full
-             md:bottom-[-60px] md:left-[30px]
-             lg:bottom-[10px] lg:left-[-30px] lg:w-[70%]
-             xl:left-[-300px]"
-          >
-            <ProfileCard />
+          <div className="absolute left-6 bottom-12 md:bottom-36 md:left-32 w-56">
+            <img
+              src="https://res.cloudinary.com/dvrsknpdj/image/upload/v1729557697/Company-Section_xixlx4.png"
+              alt="Company Section"
+              className="object-cover w-full h-[80px] md:h-[120px]"
+              style={{ cursor: 'pointer' }}
+            />
           </div>
+        </div>
+        <div className="flex flex-col md:flex-row flex-1">
+          <aside className="w-full mt-12 md:w-64 bg-white p-4 mb-4 md:mb-0">
+            <div className="w-64 bg-background">
+              {/* Sidebar Items */}
+              <div
+                onClick={() => handleItemClick("Cohorts")}
+                className={`flex items-center p-4 mb-2 cursor-pointer rounded-full transition-colors
+                  ${activeItem === "Cohorts" ? "bg-blue-100 text-blue-500 font-semibold" : "hover:bg-blue-50 text-neutral-600"}`}
+              >
+                <img
+                  src="https://res.cloudinary.com/dvrsknpdj/image/upload/v1729899460/users_xmpctc.png"
+                  className={`mr-4 transition-colors ${activeItem === "Cohorts" ? "" : "grayscale"}`}
+                  alt="Cohorts Icon"
+                />
+                <span>Cohorts</span>
+              </div>
+              <div
+                onClick={() => handleItemClick("Programs")}
+                className={`flex items-center p-4 mb-2 cursor-pointer rounded-full transition-colors
+                  ${activeItem === "Programs" ? "bg-blue-100 text-blue-500 font-semibold" : "hover:bg-blue-50 text-neutral-600"}`}
+              >
+                <img
+                  src="https://res.cloudinary.com/dvrsknpdj/image/upload/v1729899460/book-open_ht0u0t.png"
+                  className={`mr-4 transition-colors ${activeItem === "Programs" ? "" : "grayscale"}`}
+                  alt="Programs Icon"
+                />
+                <span>Programs</span>
+              </div>
+              <div
+                onClick={() => handleItemClick("Instructors")}
+                className={`flex items-center p-4 mb-2 cursor-pointer rounded-full transition-colors
+                  ${activeItem === "Instructors" ? "bg-blue-100 text-blue-500 font-semibold" : "hover:bg-blue-50 text-neutral-600"}`}
+              >
+                <img
+                  src="https://res.cloudinary.com/dvrsknpdj/image/upload/v1729899460/briefcase_cyjcbm.png"
+                  className={`mr-4 transition-colors ${activeItem === "Instructors" ? "" : "grayscale"}`}
+                  alt="Instructors Icon"
+                />
+                <span>Instructors</span>
+              </div>
+              <div
+                onClick={() => handleItemClick("Learners")}
+                className={`flex items-center p-4 mb-2 cursor-pointer rounded-full transition-colors
+                  ${activeItem === "Learners" ? "bg-blue-100 text-blue-500 font-semibold" : "hover:bg-blue-50 text-neutral-600"}`}
+              >
+                <img
+                  src="https://res.cloudinary.com/dvrsknpdj/image/upload/v1729899460/user_paszrd.png"
+                  className={`mr-4 transition-colors ${activeItem === "Learners" ? "" : "grayscale"}`}
+                  alt="Learners Icon"
+                />
+                <span>Learners</span>
+              </div>
+            </div>
+          </aside>
 
-          <div className="flex flex-col md:flex-row mt-16 flex-1">
-            {/* Sidebar */}
-            <aside className="w-full md:w-64 bg-white shadow-md p-4 mb-4 md:mb-0">
-              <ul className="ml-10 mt-10">
-                <li className="text-neutral-600 mb-6">
-                  <a
-                    href="#"
-                    className="flex items-center transition-colors duration-200 hover:text-blue-500 hover:font-bold"
-                  >
-                    <PeopleOutlineOutlinedIcon />
-                    <span className="ml-2">Cohorts</span>
-                  </a>
-                </li>
-                <li className="text-neutral-600 mb-6">
-                  <a
-                    href="#"
-                    className="flex items-center transition-colors duration-200 hover:text-blue-500 hover:font-bold"
-                  >
-                    <ImportContactsOutlinedIcon />
-                    <span className="ml-2">Programs</span>
-                  </a>
-                </li>
-                <li className="text-neutral-600 mb-6">
-                  <a
-                    href="#"
-                    className="flex items-center transition-colors duration-200 hover:text-blue-500 hover:font-bold"
-                  >
-                    <WorkOutlineIcon />
-                    <span className="ml-2">Instructors</span>
-                  </a>
-                </li>
-                <li className="text-neutral-600 mb-6">
-                  <a
-                    href="#"
-                    className="flex items-center transition-colors duration-200 hover:text-blue-500 hover:font-bold"
-                  >
-                    <PersonOutlineIcon />
-                    <span className="ml-2">Learners</span>
-                  </a>
-                </li>
-              </ul>
-            </aside>
+          <main className="p-6 flex-1 mt-12">
+            <h1 className="text-3xl mb-4 text-neutral-800 font-serif font-extrabold ml-32">Cohorts</h1>
 
-            {/* Main content */}
-            <main className="p-6 md:p-12 flex-1">
-              <h1 className="text-2xl mb-4 text-neutral-800 font-serif font-semibold">
-                Cohorts
-              </h1>
-              <div className="flex flex-col items-center justify-center h-full mt-40">
-                <div className="text-center mb-18">
-                  <div className="flex justify-center items-center text-neutral-300 font-bold">
-                    <CloudIcon style={{ fontSize: "180px" }} /> {/* Adjust size */}
+            {cohorts.length === 0 ? (
+              <div className="text-center">
+                <div className="flex justify-center mt-20">
+                  <img
+                    src="https://res.cloudinary.com/dvrsknpdj/image/upload/v1729903596/Group_598_pfpafv.png"
+                    alt="Cloud Illustration"
+                    className="w-64"
+                  />
+                </div>
+                <h2 className="text-xl font-semibold mt-10">Empty Space</h2>
+                <p className="text-neutral-600 mt-8 font-normal">
+                  No cohort has been created yet, let’s get you started by clicking the button below.
+                </p>
+                <button onClick={openCohortModal} className="mt-4 bg-blue-500 text-white p-2 rounded-md">
+                  Create a Cohort
+                </button>
+              </div>
+            ) : (
+              <div>
+                <div className="flex justify-between mb-4">
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="border border-zinc-300 p-2 rounded-md w-1/3"
+                  />
+                  <div className="relative">
+                    <button onClick={openCohortModal} className="bg-blue-500 text-white p-2 rounded-md">
+                      Create a Cohort
+                    </button>
+                    <button className="bg-zinc-200 p-2 rounded-md ml-2">More Actions</button>
+                    {/* Dropdown for more actions */}
+                    <div className="absolute right-0 mt-2 w-48 bg-white border border-zinc-300 rounded-md shadow-lg hidden">
+                      <div className="p-2 hover:bg-zinc-100">Publish a poll</div>
+                    </div>
                   </div>
-                  <h2 className="text-lg font-semibold text-neutral-600 mt-2">
-                    Empty Space
-                  </h2>
-                  <p className="text-neutral-500">
-                    No cohort has been created yet, let’s get you started by
-                    clicking the button below.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={openCohortModal}
-                    className="bg-blue-500 text-white hover:bg-blue-600 px-5 py-2 rounded-lg mt-4 transition duration-200"
-                  >
-                    Create Cohort
-                  </button>
+                </div>
+
+                <div className="border-b border-zinc-200 pb-2">
+                  {cohorts.map(cohort => (
+                    <div key={cohort.id} className="flex items-center py-2">
+                      <div className="bg-pink-200 w-10 h-10 rounded-full mr-3"></div>
+                      <div className="flex-1">
+                        <div className="font-semibold">{cohort.name}</div>
+                        <div className="text-zinc-500">
+                          {cohort.program} - {cohort.learnersCount || 0} Learners
+                        </div>
+                      </div>
+                      <div>Created {new Date(cohort.startDate).toLocaleDateString()}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </main>
-          </div>
+            )}
+          </main>
         </div>
 
         {/* Modal */}
-        <Modal open={isModalOpen} handleClose={handleCloseModal} />
+        <EnumModal open={isModalOpen} handleClose={handleCloseModal} />
       </div>
     </>
   );
