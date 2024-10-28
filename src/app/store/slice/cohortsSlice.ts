@@ -8,6 +8,7 @@ interface Cohort {
   startDate: string;
   endDate: string;
   avatar: string | null;
+  learnersCount: number;
 }
 
 interface CohortsState {
