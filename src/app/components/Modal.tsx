@@ -33,6 +33,7 @@ const EnumModal = ({ open, handleClose }: { open: boolean; handleClose: () => vo
       id: Date.now(), // Generate a unique ID
       ...cohortData,
       avatar: avatarFile ? URL.createObjectURL(avatarFile) : null,
+      learnersCount: 0, // Initialize learnersCount
     };
     dispatch(addCohort(newCohort)); // Dispatch action to add cohort
     handleClose(); // Close the modal after creating
