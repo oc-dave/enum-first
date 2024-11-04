@@ -15,9 +15,13 @@ import {
   MenuItem,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useRouter } from "next/navigation";
+
+
 
 const CohortsPage = () => {
   const dispatch = useDispatch();
+  const router  = useRouter();
   const isModalOpen = useSelector((state: RootState) => state.modal.isOpen);
   const cohorts = useSelector((state: RootState) => state.cohorts.cohorts);
 
@@ -29,6 +33,19 @@ const CohortsPage = () => {
 
   const handleItemClick = (item: string) => {
     setActiveItem(item);
+        switch (item) {
+      case "Programs":
+        router.push("/programs");
+        break;
+      case "Instructors":
+        router.push("/instructors");
+        break;
+      case "Learners":
+        router.push("/learners");
+        break;
+      default:
+        router.push("/cohorts");
+    }
   };
 
   const handleMoreActionsClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -173,7 +190,7 @@ const CohortsPage = () => {
                       variant="outlined"
                       sx={{
                         borderColor: '#008EEF', // Border color same as enum logo
-                        color: '#008EEF', // Text color to match logo
+                        color: '#142E70', // Text color to match logo
                         height: '48px', // Match height
                         padding: '12px 24px', // Set padding
                         borderRadius: '8px', // Adjust border radius
@@ -203,7 +220,7 @@ const CohortsPage = () => {
                 <div className="border-b border-zinc-200 pb-8 ml-32">
                   {cohorts.map(cohort => (
                     <div key={cohort.id} className="flex items-center py-2 pb-4 shadow-sm rounded-lg">
-                      <div className={`bg-pink-400 w-12 h-12 rounded-lg mr-3 ${cohort.avatar ? 'overflow-hidden' : ''}`}>
+                      <div className={`bg-pink-400 w-16 h-16 rounded-lg mr-3 ${cohort.avatar ? 'overflow-hidden' : ''}`}>
                         {cohort.avatar ? (
                           <img src={cohort.avatar} alt={`${cohort.name} avatar`} className="w-full h-full rounded-lg" />
                         ) : (

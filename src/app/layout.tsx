@@ -1,19 +1,4 @@
-// // src/app/layout.tsx
-// import React from "react";
-
-// interface RootLayoutProps {
-//   children: React.ReactNode;
-// }
-
-// const RootLayout = ({ children }: RootLayoutProps) => {
-//   return (
-//     <>
-//       {children}
-//     </>
-//   );
-// };
-
-// export default RootLayout; 
+ 
 import './globals.css';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
